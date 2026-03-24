@@ -1,4 +1,5 @@
 #include <iostream>
+#include <climits>
 using namespace std;
 
 // traversal is done by bfs and dfs
@@ -23,10 +24,26 @@ void displayTree(Node* root){
 }
 
 int sumTree(Node* root){
-    int sum=0;
-    if(root==nullptr) return sum;
-    sumTree(root->left);
-    sumTree(root->right);
+    if(root==nullptr) return 0;
+    return root->val + sumTree(root->left) + sumTree(root->right);
+}
+
+int sizeTree(Node* root){
+    if(root==nullptr) return 0;
+    int leftS=sizeTree(root->left);
+    int rightS=sizeTree(root->right);
+    return 1+leftS+rightS;
+}
+
+int findMaxNode(Node* root){
+    if(root==nullptr) return INT_MIN;
+    int maxSubTree = max(findMaxNode(root->left), findMaxNode(root->right));
+    return max(root->val, maxSubTree);
+}
+
+int findLevels(Node* root){
+   if(root==nullptr) return 0;
+   return 1+max(findLevels(root->left),findLevels(root->right)); 
 }
 
 int main() {
@@ -48,6 +65,14 @@ int main() {
 
     // displaying the tree
     displayTree(a);
+    cout<<endl;
+    cout<<sumTree(a);
+    cout << endl;
+    cout<<sizeTree(a);
+    cout << endl;
+    cout<<findMaxNode(a);
+    cout<<endl;
+    cout<<findLevels(a);
 
-     return 0;
+    return 0;
 }
