@@ -73,6 +73,7 @@ int main() {
     cout<<findMaxNode(a);
     cout<<endl;
     cout<<findLevels(a);
+    
 
     return 0;
 }
