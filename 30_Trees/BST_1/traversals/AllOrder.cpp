@@ -14,11 +14,29 @@ public:
     }
 };
 
-void displayTree(Node* root){
+void PredisplayTree(Node* root){
     if(root==nullptr) return;
     cout<<root->val<<" ";
-    displayTree(root->left);
-    displayTree(root->right);
+    PredisplayTree(root->left);
+    PredisplayTree(root->right);
+}
+
+void IndisplayTree(Node *root)
+{
+    if (root == nullptr)
+        return;
+    IndisplayTree(root->left);
+    cout << root->val << " ";
+    IndisplayTree(root->right);
+}
+
+void PostdisplayTree(Node *root)
+{
+    if (root == nullptr)
+        return;
+    PostdisplayTree(root->left);
+    PostdisplayTree(root->right);
+    cout << root->val << " ";
 }
 
 int main() {
@@ -38,7 +56,11 @@ int main() {
     c->left = f;
     c->right = g;
 
-    displayTree(a);
+    PredisplayTree(a);
+    cout<<endl;
+    IndisplayTree(a);
+    cout<<endl;
+    PostdisplayTree(a);
 
     return 0;
 }
