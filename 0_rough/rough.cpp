@@ -1,44 +1,72 @@
 #include <iostream>
-#include <string>
-#include <algorithm>
 #include <cmath>
 using namespace std;
 
-    string decimalToBinary(int num)
-    {
-        string s;
-        while (num > 1)
-        {
-            int rem = num % 2;
-            num /= 2;
-            char x = rem + '0';
-            s.push_back(x);
-        }
-        s.push_back('1');
-        reverse(s.begin(), s.end());
-        return s;
+class Node{
+public:
+    int val;
+    Node* next;
+    Node(int val){
+        this->val=val;
+        this->next=nullptr;
     }
+};
 
-    int concatenatedBinary(int n)
-    {
-        string res;
-        for (int i = 1; i <= n; i++)
-        {
-            res += decimalToBinary(i);
+int listSize(Node* head){
+    int count = 0;
+    if(head==nullptr) return 0;
+    else if(head->next==nullptr) return 1;
+    else{
+        
+        while(head!=nullptr){
+            count++;
+            head=head->next;
         }
-        long long result = 0;
-        int power = 0;
-        int size = res.length();
-        for (int i = size - 1; i >= 0; i--)
-        {
-            int x = res[i] - '0';
-            result += x * pow(2, power);
-            power++;
-        }
-        return result;
     }
+    return count;
+}
 
-    int main(){
-        cout << concatenatedBinary(3);
-        return 0;
+int sizeNum(int num){
+    int n=num;
+    int ans=0;
+    while(n>0){
+        n/=10;
+        ans++;
     }
+    return ans;
+}
+
+
+bool findArmstrong(int num){
+    int size=sizeNum(num);
+    int newNum=0;
+    int n = num;
+    while(n>0){
+        int unit=n%10;
+        n/=10;
+        newNum+=pow(unit,size);
+    }
+    if(newNum==num) return true;
+    else return false;
+}
+
+int main() {
+    
+    Node *a = new Node(12);
+    Node *b = new Node(13);
+    Node *c = new Node(14);
+    Node *d = new Node(15);
+
+    a->next=b;
+    b->next=c;
+    c->next=d;
+
+    int res=listSize(a);
+    //cout<<res;
+
+    cout<<findArmstrong(370)<<endl;
+
+
+
+    return 0;
+}
